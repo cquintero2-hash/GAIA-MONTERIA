@@ -483,6 +483,7 @@ h1.main{font-size:clamp(2rem,7vw,3.2rem);font-weight:900;line-height:1.1;
 <script>
 /* ─────────── CONFIG ─────────── */
 const APASS = 'UDCA2026';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxznKaD7v4Rvb69PWumHLM_zp5vuwQyEtiQ1zHetjrfuBwvy80v3YH75H3gzcrUfDWm/exec';
 let S = {pid:null,reg:null,preAns:[],gs:{s:50,e:50,p:50,ec:50,turn:0,hist:[]},done:false};
 let DATA = [];
 let raf = null;
@@ -711,12 +712,26 @@ const EVTS = [
 ];
 
 /* ─────────── STORAGE ─────────── */
+async function sendToSheet(d){
+  if(!SHEET_URL || SHEET_URL.includes('PEGA_AQUI'))return;
+  try{
+    await fetch(SHEET_URL,{
+      method:'POST',
+      mode:'no-cors', // Apps Script no permite leer la respuesta desde otro dominio, pero el envío sí llega.
+      headers:{'Content-Type':'text/plain;charset=utf-8'}, // evita el preflight OPTIONS que Apps Script no maneja
+      body:JSON.stringify(d)
+    });
+  }catch(err){
+    console.warn('No se pudo enviar a Google Sheets (se guardó localmente igual):',err);
+  }
+}
 async function save(d){
   const k='gaia:'+d.pid;
   try{await window.storage.set(k,JSON.stringify(d));
     let ix=[];try{const r=await window.storage.get('gaia:idx');ix=r?JSON.parse(r.value):[]}catch{}
     if(!ix.includes(k))ix.push(k);await window.storage.set('gaia:idx',JSON.stringify(ix));
   }catch{try{localStorage.setItem(k,JSON.stringify(d))}catch{}}
+  sendToSheet(d); // no bloqueante: si falla la red, los datos ya quedaron guardados localmente
 }
 async function loadAll(){
   const out=[];
