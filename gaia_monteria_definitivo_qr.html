@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Gaia Montería · EpCC · UDCA 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+/* ══════════════════════════ TOKENS ══════════════════════════ */
+:root{
+  --bg:#07100a; --surface:#0d1e10; --glass:rgba(13,30,16,.92);
+  --g:#22c55e; --g2:#16a34a; --g3:#bbf7d0;
+  --soc:#22d3ee; --eco:#fbbf24; --pol:#c084fc; --sis:#4ade80;
+  --red:#f87171; --oran:#fb923c; --gold:#fbbf24;
+  --txt:#e2f0e4; --muted:#6b8f72; --border:rgba(34,197,94,.15);
+  --fh:'Nunito',sans-serif; --fm:'Space Mono',monospace;
+  --r:16px; --r2:12px; --sh:0 4px 24px rgba(0,0,0,.5);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{font-size:15px;scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--txt);font-family:var(--fh);
+  min-height:100vh;overflow-x:hidden;line-height:1.65;}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 70% 60% at 15% 10%,rgba(22,163,74,.12),transparent),
+             radial-gradient(ellipse 50% 40% at 85% 90%,rgba(34,197,94,.08),transparent);}
+
+/* ═══ PAGES ═══ */
+.pg{display:none;position:relative;z-index:1;}
+.pg.on{display:block;}
+.w{max-width:660px;margin:0 auto;padding:18px 14px 64px;}
+
+/* ═══ NAVBAR ═══ */
+nav{position:sticky;top:0;z-index:300;
+  background:rgba(7,16,10,.9);backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);padding:0 14px;}
+.ni{max-width:660px;margin:0 auto;display:flex;align-items:center;
+  gap:4px;height:48px;overflow-x:auto;scrollbar-width:none;}
+.ni::-webkit-scrollbar{display:none;}
+.logo{font-size:.95rem;font-weight:900;color:var(--g);
+  margin-right:10px;white-space:nowrap;letter-spacing:-.3px;flex-shrink:0;}
+.nb{background:none;border:none;color:var(--muted);font-family:var(--fh);
+  font-size:.68rem;font-weight:700;padding:5px 12px;border-radius:20px;
+  cursor:pointer;white-space:nowrap;transition:.2s;letter-spacing:.4px;
+  text-transform:uppercase;}
+.nb:hover,.nb.on{background:rgba(34,197,94,.12);color:var(--g);}
+
+/* ═══ HERO ═══ */
+.hero{text-align:center;padding:44px 0 28px;}
+.badge{display:inline-flex;align-items:center;gap:6px;
+  background:rgba(34,197,94,.08);border:1px solid var(--border);
+  border-radius:30px;padding:5px 14px;font-size:.62rem;font-weight:700;
+  color:var(--g);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:16px;}
+h1.main{font-size:clamp(2rem,7vw,3.2rem);font-weight:900;line-height:1.1;
+  background:linear-gradient(140deg,#bbf7d0 0%,#22c55e 50%,#86efac 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  margin-bottom:10px;}
+.sub{color:var(--muted);font-size:.88rem;max-width:480px;margin:0 auto 22px;line-height:1.75;}
+
+/* ═══ CARDS ═══ */
+.card{background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r);padding:20px;box-shadow:var(--sh);}
+.card+.card{margin-top:12px;}
+.ct{font-weight:800;font-size:.95rem;color:var(--gold);margin-bottom:13px;}
+
+/* ═══ DIM CHIPS ═══ */
+.chips{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:20px;}
+.chip{padding:4px 12px;border-radius:20px;font-size:.62rem;font-family:var(--fm);}
+.chip-g{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);color:var(--g);}
+.dim-chip{padding:3px 9px;border-radius:8px;font-size:.58rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.6px;display:inline-block;}
+.d-soc{background:rgba(34,211,238,.14);color:var(--soc);}
+.d-eco{background:rgba(251,191,36,.14);color:var(--eco);}
+.d-pol{background:rgba(192,132,252,.14);color:var(--pol);}
+.d-sis{background:rgba(74,222,128,.14);color:var(--sis);}
+
+/* ═══ BUTTONS ═══ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  border:none;color:#fff;border-radius:40px;font-family:var(--fh);
+  font-size:.85rem;font-weight:800;cursor:pointer;transition:.22s;
+  padding:12px 26px;letter-spacing:.1px;}
+.btn:active{transform:scale(.97);}
+.btn-g{background:linear-gradient(135deg,#15803d,#16a34a,#22c55e);}
+.btn-g:hover{box-shadow:0 6px 24px rgba(34,197,94,.35);}
+.btn-sky{background:linear-gradient(135deg,#0e7490,#0891b2);}
+.btn-red{background:linear-gradient(135deg,#991b1b,#dc2626);}
+.btn-ghost{background:transparent;border:1.5px solid var(--g);color:var(--g);}
+.btn-sm{padding:8px 18px;font-size:.75rem;}
+.btn-w{width:100%;}
+.brow{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:16px;}
+
+/* ═══ FORMS ═══ */
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
+@media(max-width:440px){.fg{grid-template-columns:1fr;}}
+.fl label{display:block;font-size:.6rem;color:var(--muted);margin-bottom:4px;
+  letter-spacing:1px;text-transform:uppercase;font-weight:700;}
+.fl input,.fl select{width:100%;background:rgba(0,0,0,.4);
+  border:1.5px solid rgba(34,197,94,.2);border-radius:var(--r2);
+  padding:10px 13px;color:var(--txt);font-family:var(--fh);font-size:.88rem;
+  outline:none;transition:.2s;}
+.fl input:focus,.fl select:focus{border-color:rgba(34,197,94,.5);
+  box-shadow:0 0 0 3px rgba(34,197,94,.08);}
+.fl select option{background:#0d1e10;}
+.err{font-size:.68rem;color:var(--red);margin-top:3px;}
+
+/* ═══ PROGRESS ═══ */
+.prog{height:6px;background:rgba(34,197,94,.1);border-radius:3px;overflow:hidden;margin-bottom:16px;}
+.pf{height:100%;background:linear-gradient(90deg,var(--g),#86efac);transition:width .4s;}
+.pi{display:flex;justify-content:space-between;font-size:.63rem;
+  color:var(--muted);margin-bottom:5px;font-family:var(--fm);}
+
+/* ═══ QUESTIONNAIRE ═══ */
+.sec-lbl{font-size:.72rem;font-weight:800;text-transform:uppercase;
+  letter-spacing:.8px;padding:8px 0;margin:18px 0 10px;
+  display:flex;align-items:center;gap:8px;}
+.sec-lbl::after{content:'';flex:1;height:1px;background:var(--border);}
+
+.qi{background:rgba(0,0,0,.3);border:1.5px solid var(--border);
+  border-radius:14px;padding:16px;margin-bottom:10px;transition:.25s;}
+.qi.ans{border-color:rgba(34,197,94,.4);background:rgba(34,197,94,.04);}
+.qi-q{font-size:.88rem;line-height:1.6;margin-bottom:14px;font-weight:600;}
+
+/* Likert */
+.lik{display:flex;gap:4px;}
+.lik label{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;}
+.lik input{display:none;}
+.ld{width:100%;aspect-ratio:1;max-width:44px;border-radius:50%;
+  border:2px solid rgba(34,197,94,.2);display:flex;align-items:center;
+  justify-content:center;font-family:var(--fm);font-size:.78rem;font-weight:700;
+  background:rgba(0,0,0,.25);transition:.18s;margin:0 auto;}
+.lik input:checked+.ld{background:var(--g);border-color:var(--g);color:#000;}
+.ld:hover{border-color:var(--g);}
+.ll{font-size:.46rem;text-align:center;color:var(--muted);
+  max-width:50px;line-height:1.3;display:block;}
+@media(max-width:360px){.ld{max-width:36px;font-size:.7rem;}}
+
+/* ═══ SIMULATION HUD ═══ */
+.hud{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:12px;}
+@media(max-width:400px){.hud{grid-template-columns:repeat(2,1fr);}}
+.hb{background:rgba(0,0,0,.35);border:1px solid var(--border);
+  border-radius:12px;padding:9px 8px;text-align:center;}
+.hv{font-family:var(--fm);font-size:1.1rem;font-weight:700;line-height:1;}
+.hl{font-size:.5rem;text-transform:uppercase;letter-spacing:.5px;
+  color:var(--muted);margin:3px 0 5px;}
+.hbar{height:4px;border-radius:2px;background:rgba(255,255,255,.08);}
+.hbf{height:100%;border-radius:2px;transition:width .55s;}
+
+/* ═══ EVENT BOX ═══ */
+.ev{background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r);padding:18px;position:relative;overflow:hidden;}
+.ev-stripe{position:absolute;top:0;left:0;right:0;height:3px;}
+.ev-meta{display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--fm);font-size:.6rem;color:var(--muted);margin-bottom:10px;}
+.ev-title{font-size:1.05rem;font-weight:900;color:var(--gold);margin-bottom:5px;}
+.ev-story{font-size:.82rem;color:var(--muted);line-height:1.72;margin-bottom:15px;}
+.ev-dims{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px;}
+
+/* Choices */
+.ch{width:100%;display:block;background:rgba(0,0,0,.28);
+  border:1.5px solid rgba(34,197,94,.18);border-radius:12px;
+  padding:12px 14px;color:var(--txt);font-family:var(--fh);
+  font-size:.82rem;text-align:left;cursor:pointer;margin-bottom:7px;
+  transition:.2s;}
+.ch:hover:not(:disabled){background:rgba(34,197,94,.07);
+  border-color:var(--g);transform:translateX(4px);}
+.ch:disabled{opacity:.4;cursor:default;}
+.ch-fx{font-size:.6rem;color:#fbbf24;margin-top:4px;font-family:var(--fm);display:block;}
+.ch.good:disabled{border-color:rgba(34,197,94,.5);background:rgba(34,197,94,.07);}
+.ch.bad:disabled{border-color:rgba(248,113,113,.45);background:rgba(248,113,113,.06);}
+.ch.mid:disabled{border-color:rgba(251,146,60,.45);background:rgba(251,146,60,.06);}
+
+/* Feedback */
+.fb{border-radius:12px;padding:13px 15px;font-size:.8rem;line-height:1.75;
+  margin-top:12px;animation:su .3s ease;}
+.fb.good{background:rgba(34,197,94,.07);border-left:4px solid var(--g);}
+.fb.bad{background:rgba(248,113,113,.07);border-left:4px solid var(--red);}
+.fb.mid{background:rgba(251,146,60,.07);border-left:4px solid var(--oran);}
+@keyframes su{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ═══ CITY CANVAS ═══ */
+.city-box{border-radius:var(--r);overflow:hidden;border:1px solid var(--border);
+  background:#060f08;margin-bottom:12px;}
+.city-box canvas{display:block;width:100%;height:auto;}
+
+/* ═══ RESULTS ═══ */
+.score-big{text-align:center;padding:24px 0 18px;}
+.sc{font-family:var(--fm);font-size:3.8rem;font-weight:700;line-height:1;}
+.sc-lbl{font-size:.68rem;text-transform:uppercase;letter-spacing:.8px;
+  color:var(--muted);margin-top:5px;}
+.dim-row{display:flex;align-items:center;gap:10px;margin:8px 0;}
+.dr-ico{font-size:.95rem;flex-shrink:0;width:22px;}
+.dr-nm{font-size:.72rem;width:115px;flex-shrink:0;}
+.dr-tr{flex:1;height:9px;background:rgba(255,255,255,.07);border-radius:5px;overflow:hidden;}
+.dr-f{height:100%;border-radius:5px;transition:width .8s ease;}
+.dr-v{font-size:.68rem;font-family:var(--fm);width:34px;text-align:right;}
+
+/* ═══ ADMIN ═══ */
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px;}
+.tab{background:rgba(0,0,0,.3);border:1px solid var(--border);
+  border-radius:20px;padding:7px 14px;font-size:.67rem;cursor:pointer;
+  transition:.2s;font-weight:700;}
+.tab.on{background:rgba(34,197,94,.15);color:var(--g);border-color:var(--g);}
+.tp{display:none;}.tp.on{display:block;}
+.tbl{width:100%;border-collapse:collapse;font-size:.68rem;font-family:var(--fm);}
+.tbl th{background:rgba(0,0,0,.4);padding:8px 9px;text-align:left;
+  color:var(--muted);border-bottom:1px solid var(--border);font-size:.6rem;}
+.tbl td{padding:7px 9px;border-bottom:1px solid rgba(34,197,94,.06);}
+.tbl tr:hover td{background:rgba(34,197,94,.03);}
+.sg{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;}
+@media(min-width:480px){.sg{grid-template-columns:repeat(4,1fr);}}
+.sb{background:rgba(0,0,0,.3);border:1px solid var(--border);
+  border-radius:12px;padding:13px;text-align:center;}
+.sv{font-family:var(--fm);font-size:1.5rem;font-weight:700;}
+.sl{font-size:.56rem;text-transform:uppercase;letter-spacing:.5px;
+  color:var(--muted);margin-top:3px;}
+
+/* ═══ MISC ═══ */
+.hl{border-radius:12px;padding:13px 15px;margin:10px 0;font-size:.82rem;line-height:1.8;}
+.hl-g{background:rgba(34,197,94,.06);border-left:3px solid var(--g);}
+.hl-y{background:rgba(251,191,36,.06);border-left:3px solid var(--eco);}
+.hl-b{background:rgba(34,211,238,.06);border-left:3px solid var(--soc);}
+.hl-r{background:rgba(248,113,113,.06);border-left:3px solid var(--red);}
+.sep{height:1px;background:var(--border);margin:16px 0;}
+.hidden{display:none!important;}
+.spin{display:inline-block;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ═══ QR / COMPARTIR ═══ */
+.qr-wrap{display:flex;justify-content:center;padding:16px;background:#fff;
+  border-radius:14px;max-width:240px;margin:14px auto 4px;box-shadow:var(--sh);}
+.qr-wrap img,.qr-wrap canvas{display:block;border-radius:4px;}
+.qr-url-lbl{text-align:center;font-family:var(--fm);font-size:.62rem;
+  color:var(--muted);word-break:break-all;margin-top:6px;padding:0 10px;}
+
+/* ═══ CONSECUENCIAS NARRATIVAS ═══ */
+.link-note{border-radius:12px;padding:11px 13px;font-size:.76rem;line-height:1.65;
+  margin-bottom:12px;background:rgba(192,132,252,.07);border-left:3px solid var(--pol);}
+.link-note b{color:var(--pol);}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+<div class="ni">
+  <span class="logo">🌿 Gaia</span>
+  <button class="nb on" onclick="go('land')">Inicio</button>
+  <button class="nb" onclick="go('sim')">🎮 Experiencia</button>
+  <button class="nb" onclick="reqAdmin()">🔐 Admin</button>
+</div>
+</nav>
+
+<!-- ══════════════════════════ LANDING ══════════════════════════ -->
+<div id="pg-land" class="pg on">
+<div class="w">
+  <div class="hero">
+    <div class="badge">🎓 UDCA · Doctorado en Ciencias de la Sostenibilidad</div>
+    <h1 class="main">Gaia Montería</h1>
+    <p class="sub">Artefacto pedagógico para medir el impacto de la educación ambiental en el conocimiento del cambio climático. Contexto: cuenca del río Sinú, Montería, Córdoba.</p>
+    <div class="chips">
+      <span class="chip chip-g">📍 Montería · Córdoba</span>
+      <span class="chip chip-g">👥 12–18 años</span>
+      <span class="chip chip-g">📋 Pre-test 10 ítems</span>
+      <span class="chip chip-g">🎮 16 escenarios</span>
+      <span class="chip chip-g">🏙️ Ciudad dinámica</span>
+    </div>
+    <div class="brow">
+      <button class="btn btn-g" onclick="go('sim')">🚀 Comenzar experiencia</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">¿Qué vas a vivir aquí?</div>
+    <div class="hl hl-b"><strong>📋 Pre-test diagnóstico (10 preguntas)</strong> — Cuéntanos qué sabes y piensas sobre el cambio climático en Montería. 4 dimensiones, escala 1–5, completamente anónimo.</div>
+    <div class="hl hl-y" style="margin-top:8px"><strong>🎮 Simulación "Montería 2024–2040" (16 momentos)</strong> — Toma decisiones reales: el río Sinú, el calor urbano, las comunidades pesqueras, las políticas ambientales… ¡Cada elección transforma la ciudad!</div>
+    <div class="hl hl-g" style="margin-top:8px"><strong>🏙️ ¿Cómo quedará Montería?</strong> — Al final verás la ciudad según tus decisiones: desde una <em>Montería Verde Resiliente</em> hasta una <em>Montería en Crisis Climática</em>.</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px">
+    <div class="card" style="border-top:3px solid var(--soc)">
+      <div style="font-size:1.5rem;margin-bottom:6px">🔵</div>
+      <div style="font-size:.78rem;font-weight:800;color:var(--soc)">SOCIAL</div>
+      <div style="font-size:.7rem;color:var(--muted);margin-top:3px">Salud, comunidad, migración climática</div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--eco)">
+      <div style="font-size:1.5rem;margin-bottom:6px">🟡</div>
+      <div style="font-size:.78rem;font-weight:800;color:var(--eco)">ECONÓMICA</div>
+      <div style="font-size:.7rem;color:var(--muted);margin-top:3px">Pesca, agricultura, empleos verdes</div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--pol)">
+      <div style="font-size:1.5rem;margin-bottom:6px">🟣</div>
+      <div style="font-size:.78rem;font-weight:800;color:var(--pol)">POLÍTICA</div>
+      <div style="font-size:.7rem;color:var(--muted);margin-top:3px">Instituciones, leyes, CVS, Alcaldía</div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--sis)">
+      <div style="font-size:1.5rem;margin-bottom:6px">🟢</div>
+      <div style="font-size:.78rem;font-weight:800;color:var(--sis)">ECOSISTÉMICA</div>
+      <div style="font-size:.7rem;color:var(--muted);margin-top:3px">Río Sinú, bosques, biodiversidad</div>
+    </div>
+  </div>
+
+  <div class="card" id="qr-card" style="margin-top:12px">
+    <div class="ct">📱 Ingresa escaneando el código QR</div>
+    <p style="font-size:.78rem;color:var(--muted);margin-bottom:4px">Comparte este enlace o código con los participantes para que accedan desde su celular directamente a la experiencia.</p>
+    <div class="qr-wrap" id="qr-box"></div>
+    <div class="qr-url-lbl" id="qr-url-lbl">—</div>
+    <div class="brow">
+      <button class="btn btn-ghost btn-sm" onclick="copyLink()">🔗 Copiar enlace</button>
+      <button class="btn btn-sky btn-sm" onclick="downloadQR()">⬇️ Descargar QR</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════ SIM CONTAINER ══════════════════════════ -->
+<div id="pg-sim" class="pg">
+
+  <!-- REGISTRO -->
+  <div id="s-reg" class="w">
+    <div class="hero" style="padding:34px 0 22px">
+      <div class="badge">Paso 1 · Tu perfil</div>
+      <h1 class="main" style="font-size:1.9rem">¿Quién eres?</h1>
+      <p class="sub" style="font-size:.82rem">Datos confidenciales. Solo para investigación doctoral.</p>
+    </div>
+    <div class="card">
+      <div class="fg">
+        <div class="fl" style="grid-column:1/-1">
+          <label>Alias / código anónimo (ej: JV-03)</label>
+          <input id="r-al" placeholder="Escribe tu alias" maxlength="20">
+          <div class="err" id="e-al"></div>
+        </div>
+        <div class="fl">
+          <label>Edad</label>
+          <input id="r-ed" type="number" min="10" max="20" placeholder="14">
+          <div class="err" id="e-ed"></div>
+        </div>
+        <div class="fl">
+          <label>Sexo</label>
+          <select id="r-sx">
+            <option value="">Selecciona…</option>
+            <option>Femenino</option><option>Masculino</option>
+            <option>Prefiero no decir</option>
+          </select>
+          <div class="err" id="e-sx"></div>
+        </div>
+        <div class="fl" style="grid-column:1/-1">
+          <label>Institución educativa</label>
+          <input id="r-ie" placeholder="Nombre del colegio" maxlength="70">
+          <div class="err" id="e-ie"></div>
+        </div>
+        <div class="fl">
+          <label>Grado</label>
+          <select id="r-gr">
+            <option value="">Selecciona…</option>
+            <option>6°</option><option>7°</option><option>8°</option>
+            <option>9°</option><option>10°</option><option>11°</option>
+          </select>
+        </div>
+        <div class="fl">
+          <label>Zona de residencia</label>
+          <select id="r-zo">
+            <option value="">Selecciona…</option>
+            <option>Urbana</option><option>Rural</option>
+          </select>
+        </div>
+      </div>
+      <div class="brow" style="justify-content:flex-start;margin-top:16px">
+        <button class="btn btn-g" onclick="doReg()">Siguiente → Pre-test ▸</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRE-TEST -->
+  <div id="s-pre" class="w hidden">
+    <div class="hero" style="padding:34px 0 22px">
+      <div class="badge">Paso 2 · Pre-test diagnóstico</div>
+      <h1 class="main" style="font-size:1.8rem">¿Qué sabes del clima?</h1>
+      <p class="sub" style="font-size:.82rem">10 preguntas · Escala 1 a 5 · ¡No hay respuestas malas, sé honesto/a!</p>
+    </div>
+    <div class="card">
+      <div class="pi"><span id="pi-lbl">1 de 10</span><span id="pi-pct">0 %</span></div>
+      <div class="prog"><div class="pf" id="pre-pg" style="width:0%"></div></div>
+      <div id="pre-form"></div>
+      <div class="brow" style="justify-content:flex-start">
+        <button class="btn btn-g hidden" id="pre-btn" onclick="doPre()">¡Al simulador! 🎮 ▸</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JUEGO -->
+  <div id="s-game" class="w hidden">
+    <div style="padding:20px 0 14px;text-align:center">
+      <div class="badge" id="g-badge">Escenario 1 / 16</div>
+      <div style="font-family:var(--fm);font-size:.6rem;color:var(--muted);margin-top:5px" id="g-yr">📅 Año 2024</div>
+    </div>
+    <div class="hud" id="g-hud"></div>
+    <div class="city-box">
+      <canvas id="gc" width="640" height="200"></canvas>
+    </div>
+    <div id="g-fb" style="margin-bottom:10px"></div>
+    <div class="ev" id="ev">
+      <div class="ev-stripe" id="ev-s"></div>
+      <div class="ev-meta"><span id="ev-m"></span><div class="ev-dims" id="ev-d"></div></div>
+      <div class="ev-title" id="ev-t">Cargando…</div>
+      <div class="ev-story" id="ev-st"></div>
+      <div id="ev-link"></div>
+      <div id="ev-ch"></div>
+    </div>
+  </div>
+
+  <!-- RESULTADOS -->
+  <div id="s-res" class="w hidden">
+    <div class="hero" style="padding:34px 0 22px">
+      <div class="badge">Paso 3 · Resultados</div>
+      <h1 id="res-t" class="main" style="font-size:1.9rem">Tus resultados</h1>
+    </div>
+    <div class="city-box" style="margin-bottom:14px">
+      <canvas id="fc" width="640" height="320"></canvas>
+    </div>
+    <div class="card" id="res-scores"></div>
+    <div class="card" id="res-reco" style="margin-top:12px"></div>
+    <div class="card" id="res-refs" style="margin-top:12px">
+      <div class="ct">📚 Referencias científicas de esta experiencia</div>
+      <p style="font-size:.72rem;color:var(--muted);margin-bottom:10px">La retroalimentación que recibiste durante el juego está basada en las siguientes fuentes académicas (Normas APA 7):</p>
+      <ul style="font-size:.66rem;color:var(--muted);line-height:1.9;padding-left:18px;margin:0">
+        <li>Ardoin, N. M., Reid, A., Bowers, A. W., Ballard, H. L., &amp; Monroe, M. C. (2026). Engaging people in educational processes that foster environmentally valuable outcomes: A synthesis of key findings across eight systematic reviews. <em>People and Nature</em>. https://doi.org/10.1002/pan3.70265</li>
+        <li>Banco Mundial. (2021). <em>Groundswell part 2: Acting on internal climate migration</em>. World Bank Group.</li>
+        <li>Congreso de Colombia. (1993, 22 de diciembre). <em>Ley 99 de 1993</em>, por la cual se crea el Ministerio del Medio Ambiente y se organiza el Sistema Nacional Ambiental (SINA). Diario Oficial No. 41.146.</li>
+        <li>Dominguez-Rendón, E., Villada-Canela, M., &amp; Muñoz-Pizza, D. M. (2024). Community strengthening through citizen monitoring of water quality: A systematic review. <em>PLOS ONE, 19</em>(7), e0305723. https://doi.org/10.1371/journal.pone.0305723</li>
+        <li>Panel Intergubernamental de Expertos sobre el Cambio Climático (IPCC). (2023). <em>Climate change 2023: Synthesis report</em>. IPCC.</li>
+        <li>Mnukwa, M. L., Mdoda, L., &amp; Mudhara, M. (2025). Assessing the adoption and impact of climate-smart agricultural practices on smallholder maize farmers' livelihoods in Sub-Saharan Africa: A systematic review. <em>Frontiers in Sustainable Food Systems, 9</em>, Article 1543805. https://doi.org/10.3389/fsufs.2025.1543805</li>
+        <li>Ramsar Convention on Wetlands. (2021). <em>Global wetland outlook: Special edition 2021</em>. Secretariat of the Convention on Wetlands.</li>
+        <li>U.S. Environmental Protection Agency. (2008). <em>Reducing urban heat islands: Compendium of strategies – Trees and vegetation</em>. https://www.epa.gov/heat-islands/heat-island-compendium</li>
+      </ul>
+    </div>
+    <div class="brow">
+      <button class="btn btn-ghost btn-sm" onclick="reset()">← Reiniciar</button>
+      <button class="btn btn-sky btn-sm" onclick="go('land')">🏠 Inicio</button>
+    </div>
+  </div>
+
+</div><!-- /pg-sim -->
+
+<!-- ══════════════════════════ ADMIN ══════════════════════════ -->
+<div id="pg-admin" class="pg">
+<div class="w">
+  <div class="hero" style="padding:32px 0 20px">
+    <div class="badge">🔐 Panel investigador</div>
+    <h1 class="main" style="font-size:1.9rem">Dashboard</h1>
+    <p class="sub" style="font-size:.8rem">UDCA · Doctorado en Ciencias de la Sostenibilidad · EpCC 2025</p>
+  </div>
+  <div class="tabs">
+    <div class="tab on" onclick="aTab('td',this)">📊 Resumen</div>
+    <div class="tab" onclick="aTab('tp',this)">👥 Participantes</div>
+    <div class="tab" onclick="aTab('tpre',this)">📋 Pre-test</div>
+    <div class="tab" onclick="aTab('tex',this)">📥 Exportar</div>
+  </div>
+  <div id="td" class="tp on card"><div id="dash"></div></div>
+  <div id="tp" class="tp card">
+    <input id="srch" placeholder="Buscar por alias o colegio…"
+      style="width:100%;background:rgba(0,0,0,.4);border:1.5px solid var(--border);
+      border-radius:var(--r2);padding:9px 13px;color:var(--txt);
+      font-family:var(--fh);margin-bottom:12px;" oninput="filterP()">
+    <div style="overflow-x:auto"><div id="ptbl"></div></div>
+  </div>
+  <div id="tpre" class="tp card"><div id="prestats"></div></div>
+  <div id="tex" class="tp card">
+    <p style="font-size:.82rem;color:var(--muted);margin-bottom:14px">Exporta los datos para SPSS, R o Excel. El CSV completo incluye alias, datos demográficos, los 10 ítems del pre-test por dimensión y los puntajes de simulación.</p>
+    <div class="brow" style="justify-content:flex-start">
+      <button class="btn btn-g btn-sm" onclick="doExport('full')">📥 CSV completo</button>
+      <button class="btn btn-ghost btn-sm" onclick="doExport('summary')">📋 CSV resumen</button>
+      <button class="btn btn-red btn-sm" onclick="clearAll()">🗑️ Borrar todo</button>
+    </div>
+  </div>
+  <div class="brow" style="justify-content:flex-start;margin-top:12px">
+    <button class="btn btn-ghost btn-sm" onclick="go('land')">← Salir</button>
+    <button class="btn btn-sm btn-sky" onclick="loadAdmin()">🔄 Refrescar</button>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════ SCRIPT ══════════════════════════ -->
+<script>
+/* ─────────── CONFIG ─────────── */
+const APASS = 'UDCA2026';
+let S = {pid:null,reg:null,preAns:[],gs:{s:50,e:50,p:50,ec:50,turn:0,hist:[]},done:false};
+let DATA = [];
+let raf = null;
+
+/* ─────────── PRE-TEST ITEMS ─────────── */
+const ITEMS = [
+  // SOCIAL
+  {id:'S1',dim:'soc',q:'🌊 Las comunidades que viven cerca del río Sinú son las más afectadas cuando hay inundaciones por el cambio climático.',
+   l1:'Totalmente en desacuerdo',l5:'Totalmente de acuerdo'},
+  {id:'S2',dim:'soc',q:'🌡️ El calor extremo en Montería afecta la salud de niños y personas mayores más que a los adultos jóvenes.',
+   l1:'Totalmente en desacuerdo',l5:'Totalmente de acuerdo'},
+  {id:'S3',dim:'soc',q:'🚶 Conozco o he oído de familias del campo de Córdoba que tuvieron que mudarse por inundaciones, sequías o pérdida de cultivos.',
+   l1:'Nunca he escuchado eso',l5:'Conozco varios casos'},
+  // ECONÓMICA
+  {id:'E1',dim:'eco',q:'🐟 La pesca en la Ciénaga de Lorica y el río Sinú está disminuyendo por culpa del cambio climático y la contaminación.',
+   l1:'Totalmente en desacuerdo',l5:'Totalmente de acuerdo'},
+  {id:'E2',dim:'eco',q:'💚 Invertir en energías renovables y cuidado ambiental en Córdoba puede generar más empleos que destruirlos.',
+   l1:'Totalmente en desacuerdo',l5:'Totalmente de acuerdo'},
+  // POLÍTICA
+  {id:'P1',dim:'pol',q:'🏛️ Instituciones como la CVS (Corporación Autónoma del Sinú) y la Alcaldía de Montería tienen herramientas legales para proteger el río Sinú del cambio climático.',
+   l1:'Totalmente en desacuerdo',l5:'Totalmente de acuerdo'},
+  {id:'P2',dim:'pol',q:'📢 Los jóvenes como yo podemos influir en las decisiones del gobierno municipal sobre cambio climático si nos organizamos y participamos.',
+   l1:'Totalmente en desacuerdo',l5:'Totalmente de acuerdo'},
+  // ECOSISTÉMICA
+  {id:'EC1',dim:'sis',q:'🌿 La deforestación (tala de bosques) en la cuenca alta del Sinú empeora las inundaciones y sequías en Montería.',
+   l1:'Totalmente en desacuerdo',l5:'Totalmente de acuerdo'},
+  {id:'EC2',dim:'sis',q:'🔥 Montería se volverá más caliente, más inundable y con menos biodiversidad en los próximos 20 años si no actuamos.',
+   l1:'Totalmente en desacuerdo',l5:'Totalmente de acuerdo'},
+  {id:'EC3',dim:'sis',q:'🦜 El río Sinú, los humedales y los bosques de Córdoba son esenciales para mantener el clima local y la vida de las comunidades.',
+   l1:'Totalmente en desacuerdo',l5:'Totalmente de acuerdo'},
+];
+
+/* ─────────── SIMULATION EVENTS (16) ─────────── */
+const EVTS = [
+{dim:'soc',c:'#22d3ee',yr:2024,
+ t:'🌡️ Ola de calor extremo en Montería',
+ s:'Las temperaturas superan 41°C durante 5 días. Tu colegio no tiene ventilación. Tres compañeros se desmayan. Los hospitales están saturados y los barrios más pobres son los más afectados porque no tienen donde refugiarse.',
+ ch:[
+   {t:'🌳 Proponer al colegio sembrar árboles nativos y crear zonas de sombra de emergencia con comunidad',fx:'🔵+18 🟢+12',fn:g=>{g.s+=18;g.ec+=12;},tp:'good',
+    fb:'¡Decisión perfecta! Los árboles reducen hasta 8°C la temperatura percibida. El guayacán, el caracolí y el cañahuate son especies nativas ideales para Montería. La cobertura arbórea urbana es reconocida como una de las estrategias más efectivas para mitigar el efecto de isla de calor (U.S. Environmental Protection Agency [EPA], 2008).'},
+   {t:'📱 Hacer una campaña en redes pero no actuar físicamente',fx:'🔵+5',fn:g=>{g.s+=5;},tp:'mid',
+    fb:'Visibilizar el problema ayuda, pero las redes no plantan árboles ni dan sombra. La acción física en el barrio tiene un impacto real e inmediato.'},
+   {t:'😐 "El calor siempre ha sido así en Montería, no hay que exagerar"',fx:'🔵−14 🟢−10',fn:g=>{g.s-=14;g.ec-=10;},tp:'bad',
+    fb:'Normalizar el calor extremo es peligroso. Las olas de calor ya causan muertes en la región Caribe. Ignorarlas aumenta la vulnerabilidad de toda la comunidad.'},
+ ]},
+{dim:'eco',c:'#fbbf24',yr:2024,
+ t:'🐟 Crisis pesquera en el Bajo Sinú',
+ s:'Los pescadores de la Ciénaga de Lorica reportan que las capturas cayeron un 65% en dos años. El agua está más caliente, la sedimentación tapa los humedales donde los peces se reproducen y los niveles del río varían cada vez más.',
+ ch:[
+   {t:'🌿 Apoyar un plan de restauración participativa de la ciénaga con pescadores y la CVS',fx:'🟡+20 🟢+18 🟣+10',fn:g=>{g.e+=20;g.ec+=18;g.p+=10;},tp:'good',
+    fb:'¡Excelente! El conocimiento ancestral de los pescadores Zenú combinado con ciencia ambiental es la mejor herramienta para restaurar la ciénaga. La CVS tiene recursos disponibles. Los humedales como la Ciénaga de Lorica cumplen funciones esenciales de regulación hídrica y sostén de biodiversidad que, una vez perdidas, son muy difíciles de recuperar (Ramsar Convention on Wetlands, 2021).'},
+   {t:'🏭 Construir piscifactoría y olvidar la ciénaga natural',fx:'🟡+7 🟢−18',fn:g=>{g.e+=7;g.ec-=18;},tp:'mid',
+    fb:'Una piscifactoría da ingresos a corto plazo, pero sin el ecosistema sano colapsa también. El río Sinú es el sistema de soporte de toda la economía local.'},
+   {t:'😔 "El clima siempre ha cambiado, no se puede hacer nada"',fx:'🟡−16 🟢−14',fn:g=>{g.e-=16;g.ec-=14;},tp:'bad',
+    fb:'El fatalismo climático es el mayor obstáculo para la acción. Miles de familias del Bajo Sinú dependen de este ecosistema. Hay mucho que se puede hacer a nivel local.'},
+ ]},
+{dim:'pol',c:'#c084fc',yr:2024,
+ t:'🏚️ Familias en la ronda hídrica del río Sinú',
+ s:'Familias de bajos recursos construyeron casas sobre la ronda del río Sinú en Montería. La temporada de lluvias se acerca. El riesgo de inundación es muy alto. La Alcaldía debate qué hacer.',
+ ch:[
+   {t:'🏘️ Apoyar plan de reubicación digna con vivienda social + restauración ecológica de la ronda',fx:'🟣+22 🔵+18 🟢+16',fn:g=>{g.p+=22;g.s+=18;g.ec+=16;},tp:'good',
+    fb:'La solución integral protege vidas Y el ecosistema. Requiere coordinación entre Alcaldía, MinVivienda y CVS, pero es la única alternativa sostenible y justa. Reubicar sin restaurar el ecosistema es una solución incompleta: los asentamientos informales en zonas de riesgo hídrico seguirán creciendo si no se atienden las causas de fondo del desplazamiento (Banco Mundial, 2021).'},
+   {t:'🚔 Desalojar sin ofrecer alternativas de vivienda',fx:'🟣+4 🔵−20 🟢+8',fn:g=>{g.p+=4;g.s-=20;g.ec+=8;},tp:'bad',
+    fb:'Los desalojos sin alternativas violan derechos humanos y no resuelven el problema: las familias vuelven a ocupar la ronda u otras zonas de riesgo igualmente peligrosas.'},
+   {t:'📋 No hacer nada hasta que ocurra la inundación',fx:'🟣−14 🔵−12 🟢−16',fn:g=>{g.p-=14;g.s-=12;g.ec-=16;},tp:'bad',
+    fb:'Esperar la catástrofe para actuar es la peor política pública posible. Las inundaciones en zonas de ronda hídrica pueden ser mortales y destruyen el tejido social durante años.'},
+ ]},
+{dim:'sis',c:'#4ade80',yr:2025,
+ t:'🪓 Solicitud de tala en la cuenca del Nudo de Paramillo',
+ s:'Una empresa maderera pide permiso para talar 400 hectáreas de bosque en la zona de amortiguación del Parque Nudo de Paramillo. El estudio de impacto ambiental tiene inconsistencias. Prometen 80 empleos temporales.',
+ ch:[
+   {t:'🚫 Negar la licencia y proponer alternativas: ecoturismo, pagos por servicios ambientales',fx:'🟢+24 🟡+12 🟣+10',fn:g=>{g.ec+=24;g.e+=12;g.p+=10;},tp:'good',
+    fb:'¡Decisión clave! El bosque en la cuenca alta regula el agua del Sinú. Perderlo significa más inundaciones en Montería durante décadas. Los pagos por servicios ambientales dan ingresos sostenibles. Los bosques cumplen un papel central en la regulación del ciclo del agua y en la adaptación al cambio climático, por lo que su pérdida agrava tanto sequías como inundaciones aguas abajo (Panel Intergubernamental de Expertos sobre el Cambio Climático [IPCC], 2023).'},
+   {t:'✅ Aprobar con condiciones mínimas de reforestación',fx:'🟢−16 🟡+5 🟣−5',fn:g=>{g.ec-=16;g.e+=5;g.p-=5;},tp:'mid',
+    fb:'Las condiciones mínimas raramente se cumplen. La pérdida de bosque seco tropical en Córdoba es prácticamente irreversible. Los 80 empleos duran 2 años; el daño ecológico, generaciones.'},
+   {t:'😶 No opinar, "es una decisión del gobierno"',fx:'🟢−18 🟡−5',fn:g=>{g.ec-=18;g.e-=5;},tp:'bad',
+    fb:'La ciudadanía tiene derecho constitucional a participar en decisiones ambientales (Ley 99/1993). El silencio equivale a aprobar la tala.'},
+ ]},
+{dim:'soc',c:'#22d3ee',yr:2025,
+ t:'🚶‍♀️ Familias campesinas llegan a Montería huyendo del clima',
+ s:'Tres familias del sur de Córdoba llegan a Montería porque perdieron sus cosechas dos años seguidos por sequías e inundaciones. Sin recursos, se dirigen a los asentamientos informales cerca del río.',
+ ch:[
+   {t:'🤝 Impulsar un programa de acogida comunitaria con la Secretaría Social',fx:'🔵+18 🟣+12 🟡+8',fn:g=>{g.s+=18;g.p+=12;g.e+=8;},tp:'good',
+    fb:'La migración climática es una realidad que irá aumentando. Montería necesita políticas de acogida que prevengan que estas familias ocupen zonas de alto riesgo hídrico. El Banco Mundial (2021) proyecta que el cambio climático podría forzar la migración interna de más de 200 millones de personas hacia el año 2050, sobre todo desde zonas rurales hacia ciudades.'},
+   {t:'📲 Solo publicar su historia en redes sin articular acciones',fx:'🔵+7 🟣+4',fn:g=>{g.s+=7;g.p+=4;},tp:'mid',
+    fb:'Visibilizar ayuda a generar presión, pero sin acciones concretas el impacto es mínimo. Las redes no reemplazan la acción institucional y comunitaria coordinada.'},
+   {t:'🙈 "No son de Montería, que el gobierno los atienda"',fx:'🔵−18 🟡−10',fn:g=>{g.s-=18;g.e-=10;},tp:'bad',
+    fb:'El desplazamiento climático es una injusticia. Sin alternativas, estas familias terminan en zonas de riesgo del río, aumentando la vulnerabilidad colectiva de toda la ciudad.'},
+ ]},
+{dim:'eco',c:'#fbbf24',yr:2025,
+ t:'⚡ Oferta de paneles solares para colegios rurales de Córdoba',
+ s:'El Ministerio de Educación ofrece financiar energía solar en 25 colegios rurales de Córdoba. La Secretaría de Educación debe aportar solo el 15%. Algunos funcionarios prefieren usar ese dinero en mantenimiento de baños.',
+ ch:[
+   {t:'☀️ Defender la propuesta solar priorizando colegios en zonas más vulnerables al calor',fx:'🟡+22 🔵+14 🟣+12 🟢+8',fn:g=>{g.e+=22;g.s+=14;g.p+=12;g.ec+=8;},tp:'good',
+    fb:'¡Decisión ejemplar! Los paneles solares reducen costos, garantizan electricidad en apagones, y convierten cada colegio en un laboratorio de transición energética para toda la comunidad. La transición hacia energías renovables es señalada como una de las medidas de mitigación más costo-efectivas disponibles actualmente (IPCC, 2023).'},
+   {t:'🚽 Usar el dinero solo en infraestructura básica',fx:'🟡+5 🔵+5 🟢−6',fn:g=>{g.e+=5;g.s+=5;g.ec-=6;},tp:'mid',
+    fb:'La infraestructura básica es importante, pero no excluyente. Esta oportunidad histórica de energía solar no siempre vuelve. Se pueden buscar otras fuentes para el mantenimiento.'},
+   {t:'🚫 Rechazar por trámites burocráticos',fx:'🟡−14 🟢−10',fn:g=>{g.e-=14;g.ec-=10;},tp:'bad',
+    fb:'Perder esta oportunidad mantiene a los colegios rurales dependiendo de energía fósil costosa. Los colegios son centros comunitarios; la energía solar beneficia mucho más allá del aula.'},
+ ]},
+{dim:'pol',c:'#c084fc',yr:2026,
+ t:'📋 Rediseño del Proyecto Ambiental Escolar (PRAE)',
+ s:'La rectora te invita a participar en la actualización del PRAE de tu colegio, que lleva 6 años sin revisarse. Tienes la oportunidad de proponer la nueva dirección del proyecto ambiental institucional.',
+ ch:[
+   {t:'🌍 Proponer un PRAE centrado en cambio climático local: río Sinú, temperatura, comunidades vulnerables',fx:'🟣+20 🔵+16 🟢+12',fn:g=>{g.p+=20;g.s+=16;g.ec+=12;},tp:'good',
+    fb:'¡Un PRAE vivo y contextualizado es la herramienta más poderosa de la EpCC! Cuando el CC se vincula al río Sinú y a la vida cotidiana de Montería, el conocimiento se vuelve accionable. La evidencia internacional muestra que los programas de educación ambiental más efectivos combinan metodologías participativas, componentes de acción directa y una conexión con el contexto local (Ardoin et al., 2026).'},
+   {t:'🌱 Incluir solo un huerto escolar sin abordar el cambio climático',fx:'🟣+5 🔵+5 🟢+5',fn:g=>{g.p+=5;g.s+=5;g.ec+=5;},tp:'mid',
+    fb:'El huerto es positivo pero insuficiente. Sin abordar las causas, dimensiones y soluciones del CC, el PRAE pierde su potencial transformador para la comunidad.'},
+   {t:'📄 Actualizar solo la fecha del documento y seguir igual',fx:'🟣−12 🔵−8',fn:g=>{g.p-=12;g.s-=8;},tp:'bad',
+    fb:'Un PRAE desactualizado es burocracia vacía. No transforma comportamientos ni moviliza comunidades. Es una oportunidad perdida para la educación climática real.'},
+ ]},
+{dim:'sis',c:'#4ade80',yr:2026,
+ t:'🌊 Contaminación del río Sinú por agroquímicos',
+ s:'Agricultores en la cuenca media del Sinú usan pesticidas que están llegando al río. Los peces están muriendo cerca de Montería. La CVS dice que no tiene suficiente personal para vigilar los 438 km de ribera.',
+ ch:[
+   {t:'🔬 Organizar grupos de ciencia ciudadana: estudiantes que monitorean la calidad del agua',fx:'🟢+22 🟣+16 🔵+12',fn:g=>{g.ec+=22;g.p+=16;g.s+=12;},tp:'good',
+    fb:'¡La ciencia ciudadana es extraordinariamente poderosa! Los datos comunitarios complementan los institucionales. Los estudiantes que monitorean el Sinú se convierten en guardianes del río. Las revisiones sistemáticas sobre monitoreo comunitario del agua muestran que estas iniciativas fortalecen la organización local y llenan vacíos de información que las instituciones no logran cubrir por sí solas (Dominguez-Rendón et al., 2024).'},
+   {t:'📞 Llamar a la CVS y esperar que ellos actúen',fx:'🟢+6 🟣+6',fn:g=>{g.ec+=6;g.p+=6;},tp:'mid',
+    fb:'Reportar a la CVS es necesario, pero insuficiente solo. La vigilancia ciudadana continua es más efectiva para un problema crónico como la contaminación agrícola.'},
+   {t:'💧 Comprar agua embotellada y olvidar el río',fx:'🟢−20 🟡−12',fn:g=>{g.ec-=20;g.e-=12;},tp:'bad',
+    fb:'Esta solución individualista abandona el bien colectivo. El río Sinú no es un recurso privado. Quienes no pueden pagar agua embotellada quedan desprotegidos por esta decisión.'},
+ ]},
+{dim:'soc',c:'#22d3ee',yr:2027,
+ t:'🎭 Campaña de educación climática: ¿cómo hacerla?',
+ s:'La Alcaldía de Montería propone una campaña de educación climática en todos los colegios. Hay debate: ¿charlas magistrales de expertos o actividades participativas donde los jóvenes sean protagonistas?',
+ ch:[
+   {t:'🎮 Diseñar talleres participativos: teatro, mapeo comunitario, debates y proyectos reales',fx:'🔵+24 🟣+16 🟢+10',fn:g=>{g.s+=24;g.p+=16;g.ec+=10;},tp:'good',
+    fb:'Las metodologías activas generan aprendizaje durable y cambio de comportamientos. Cuando los jóvenes conectan el CC con su propio territorio, el conocimiento se vuelve acción. La síntesis de revisiones sistemáticas de Ardoin et al. (2026) identifica la participación activa, la acción directa y la conexión con información personalmente relevante como los elementos que más fortalecen la educación ambiental.'},
+   {t:'📺 Charla de experto en cada colegio (una sola vez)',fx:'🔵+8 🟣+5',fn:g=>{g.s+=8;g.p+=5;},tp:'mid',
+    fb:'Una charla aporta información pero tiene bajo impacto en actitudes. La educación climática efectiva requiere continuidad, participación y conexión con la experiencia cotidiana.'},
+   {t:'📱 Solo campaña en redes sociales',fx:'🔵+5',fn:g=>{g.s+=5;},tp:'mid',
+    fb:'Las redes complementan pero no reemplazan la educación presencial experiencial. El cambio real requiere conversaciones profundas y acciones colectivas en el territorio.'},
+ ]},
+{dim:'eco',c:'#fbbf24',yr:2027,
+ t:'🌾 Sequía devastadora en la Sabana Cordobesa',
+ s:'La temporada seca de 2027 es la más intensa en 30 años. Los campesinos pierden el 70% de las cosechas. Los precios de los alimentos suben un 40%. Las familias más pobres de Montería ya no pueden comprar verduras.',
+ ch:[
+   {t:'🌱 Promover sistemas de cultivo resilientes: agrosilvicultura y cosecha de agua lluvia',fx:'🟡+22 🟢+18 🔵+10',fn:g=>{g.e+=22;g.ec+=18;g.s+=10;},tp:'good',
+    fb:'La agrosilvicultura combina árboles y cultivos, protege el suelo, reduce evaporación y mantiene producción en sequías. Es la solución del siglo XXI para la agricultura del Caribe colombiano. Revisiones sistemáticas sobre prácticas agrícolas climáticamente inteligentes reportan hasta un 40% menos de pérdida de cosechas en fincas que usan cosecha de agua lluvia y sistemas agroforestales durante sequías (Mnukwa et al., 2025).'},
+   {t:'💉 Pedir solo ayuda humanitaria sin cambiar prácticas',fx:'🟡+8 🔵+5 🟢−5',fn:g=>{g.e+=8;g.s+=5;g.ec-=5;},tp:'mid',
+    fb:'La ayuda humanitaria salva vidas a corto plazo, pero si no se transforman las prácticas agrícolas, la próxima sequía producirá la misma crisis o peor.'},
+   {t:'🏙️ Decirles a los campesinos que migren a Montería',fx:'🟡−14 🔵−10 🟢−8',fn:g=>{g.e-=14;g.s-=10;g.ec-=8;},tp:'bad',
+    fb:'Forzar la migración destruye comunidades y conocimientos ancestrales invaluables. Además sobrecarga los servicios de Montería sin resolver la crisis alimentaria de fondo.'},
+ ]},
+{dim:'pol',c:'#c084fc',yr:2028,
+ t:'🏛️ Cabildo abierto: Plan de Adaptación Climática de Montería',
+ s:'La Alcaldía convoca a jóvenes para participar en la construcción del Plan de Adaptación Climática 2028-2042. Es tu turno de hablar. ¿Qué llevas al cabildo?',
+ link:{idx:6,
+   onGood:{note:'🔗 <b>Consecuencia de tus decisiones:</b> el PRAE climático que ayudaste a diseñar en tu colegio en 2026 te dio datos y argumentos sólidos que ahora puedes llevar al cabildo.',bonus:{p:4,s:3}},
+   onBadOrMid:{note:'🔗 <b>Consecuencia de tus decisiones:</b> como el PRAE de tu colegio nunca abordó a fondo el cambio climático, llegas al cabildo con menos argumentos y datos locales que otros jóvenes.',bonus:{p:-3}}},
+ ch:[
+   {t:'📣 Propuestas concretas basadas en datos: corredores verdes, rondas hídricas, energía solar',fx:'🟣+24 🔵+18 🟢+14',fn:g=>{g.p+=24;g.s+=18;g.ec+=14;},tp:'good',
+    fb:'¡La incidencia política fundamentada es la acción ciudadana más poderosa! Las propuestas concretas y con datos tienen mucho más impacto que las quejas generales en los espacios de decisión. La participación cívica juvenil sostenida y basada en evidencia es uno de los componentes que la investigación identifica como más efectivos para lograr cambios ambientales reales (Ardoin et al., 2026).'},
+   {t:'📝 Llevar solo un listado de quejas sin propuestas',fx:'🟣+6 🔵+4',fn:g=>{g.p+=6;g.s+=4;},tp:'mid',
+    fb:'Las quejas sin soluciones tienen impacto limitado. Los tomadores de decisiones responden mejor cuando ven propuestas viables, concretas y costeadas.'},
+   {t:'🚪 No asistir, "los adultos no nos escuchan de todas formas"',fx:'🟣−18 🔵−10',fn:g=>{g.p-=18;g.s-=10;},tp:'bad',
+    fb:'Ausentarse es ceder el poder. La historia muestra que los jóvenes organizados logran cambios reales en políticas locales. Tu voz en el cabildo importa más de lo que crees.'},
+ ]},
+{dim:'sis',c:'#4ade80',yr:2029,
+ t:'🌳 Programa masivo de reforestación urbana',
+ s:'La CVS propone sembrar 50,000 árboles nativos en Montería para reducir el efecto de isla de calor urbana. Necesitan voluntarios masivos. El presupuesto alcanza solo si la comunidad aporta mano de obra.',
+ link:[
+   {idx:0,
+    onGood:{note:'🔗 <b>Consecuencia de tus decisiones:</b> los árboles que sembraste en tu barrio en 2024 ya daban sombra y la comunidad sabe organizarse rápido para una jornada de siembra.',bonus:{ec:3,s:2}},
+    onBadOrMid:{note:'🔗 <b>Consecuencia de tus decisiones:</b> como en 2024 no se actuó frente al calor, cuesta más convencer a la comunidad de que esta vez sí vale la pena movilizarse.',bonus:{ec:-2}}},
+   {idx:3,
+    onGood:{note:'🔗 <b>Además:</b> el bosque protegido en el Nudo de Paramillo en 2025 sigue regulando el agua que necesitan estos nuevos árboles urbanos.',bonus:{ec:2}},
+    onBadOrMid:{note:'🔗 <b>Además:</b> la tala aprobada en el Nudo de Paramillo en 2025 redujo la disponibilidad de agua para el vivero comunitario, dificultando el riego de los nuevos árboles.',bonus:{ec:-3}}}
+ ],
+ ch:[
+   {t:'🌿 Movilizar estudiantes, docentes y familias en jornadas comunitarias de siembra',fx:'🟢+24 🔵+20 🟣+12',fn:g=>{g.ec+=24;g.s+=20;g.p+=12;},tp:'good',
+    fb:'¡Acción colectiva transformadora! Cada árbol reduce hasta 0.5°C la temperatura local. 50,000 árboles pueden cambiar el microclima de Montería en 10 años. Los colegios son el motor. La cobertura arbórea urbana es una de las estrategias de adaptación más respaldadas por la evidencia para reducir el efecto de isla de calor (EPA, 2008).'},
+   {t:'💰 Solo participar si la CVS paga por el trabajo',fx:'🟢+9 🟣+5 🔵−5',fn:g=>{g.ec+=9;g.p+=5;g.s-=5;},tp:'mid',
+    fb:'Pagar por trabajo es justo. Pero si la exigencia bloquea la siembra, se pierden los árboles y sus beneficios climáticos. Una solución mixta (voluntarios + jornales para los más vulnerables) es ideal.'},
+   {t:'📸 Ir un día para la foto y luego abandonar',fx:'🟢−10 🔵−8 🟣−6',fn:g=>{g.ec-=10;g.s-=8;g.p-=6;},tp:'bad',
+    fb:'Los árboles jóvenes mueren sin cuidado. La incoherencia entre el discurso ambiental y la acción real es uno de los mayores obstáculos para la educación climática efectiva.'},
+ ]},
+{dim:'pol',c:'#c084fc',yr:2030,
+ t:'🏗️ Constructora quiere edificar sobre humedal del Sinú',
+ s:'Una empresa inmobiliaria propone construir 600 viviendas sobre un humedal conectado al sistema del río Sinú. El POMCA (Plan de Ordenamiento de Cuencas) lo prohíbe claramente. Prometen trabajo y "solución" al déficit de vivienda.',
+ link:{idx:2,
+   onGood:{note:'🔗 <b>Consecuencia de tus decisiones:</b> la restauración ecológica de la ronda hídrica que impulsaste en 2024 fortaleció el argumento técnico y legal para proteger este humedal.',bonus:{p:3,ec:2}},
+   onBadOrMid:{note:'🔗 <b>Consecuencia de tus decisiones:</b> como en 2024 no se protegió bien la ronda hídrica, la ciudad tiene menos precedentes y menos organización comunitaria para defender este humedal.',bonus:{p:-3}}},
+ ch:[
+   {t:'🚫 Apoyar el cumplimiento del POMCA y proponer alternativas de vivienda en zonas seguras',fx:'🟡+18 🟢+22 🟣+20',fn:g=>{g.e+=18;g.ec+=22;g.p+=20;},tp:'good',
+    fb:'¡Defender la ley ambiental ES acción climática! Los humedales son esponjas naturales que absorben inundaciones. Construir sobre ellos condena a toda la ciudad a peores catástrofes. Los humedales figuran entre los ecosistemas que más servicios de regulación hídrica prestan a nivel global, y su pérdida acelera tanto inundaciones como escasez de agua (Ramsar Convention on Wetlands, 2021).'},
+   {t:'💼 Apoyar la construcción porque "Montería necesita casas"',fx:'🟡+7 🟢−22 🟣−14',fn:g=>{g.e+=7;g.ec-=22;g.p-=14;},tp:'bad',
+    fb:'Las inundaciones sobre humedales destruidos generan pérdidas que superan 100 veces el valor de las casas. Montería ha vivido este ciclo: urbanización sin planificación = catástrofe.'},
+   {t:'😶 No tomar partido, "es un tema muy complicado"',fx:'🟡−5 🟢−10 🟣−8',fn:g=>{g.e-=5;g.ec-=10;g.p-=8;},tp:'mid',
+    fb:'Cuando la ley ambiental es clara, la neutralidad equivale a apoyar su violación. La ciudadanía activa requiere posición fundamentada en los temas que afectan la vida colectiva.'},
+ ]},
+{dim:'soc',c:'#22d3ee',yr:2032,
+ t:'🎨 Colectivo de arte climático en los barrios',
+ s:'Un grupo de artistas propone pintar murales sobre el cambio climático, el río Sinú y la Ciénaga de Lorica en barrios de Montería. Necesitan jóvenes co-creadores para diseñar y pintar.',
+ ch:[
+   {t:'🖌️ Unirte como co-creador/a, conectar con la comunidad y diseñar los murales',fx:'🔵+20 🟣+12 🟢+8',fn:g=>{g.s+=20;g.p+=12;g.ec+=8;},tp:'good',
+    fb:'El arte climático crea vínculos emocionales con el territorio que ningún dato puede replicar. Un mural sobre el Sinú en cada barrio recuerda diariamente la conexión entre la ciudad y su río. La investigación en educación ambiental resalta que conectar los aprendizajes con experiencias personalmente significativas y con el territorio local fortalece su impacto duradero (Ardoin et al., 2026).'},
+   {t:'👍 Darles "me gusta" en redes pero no participar',fx:'🔵+6 🟣+3',fn:g=>{g.s+=6;g.p+=3;},tp:'mid',
+    fb:'La difusión digital ayuda a llegar a más personas, pero la creación colectiva cara a cara tiene un impacto transformador en quienes la viven. El proceso importa tanto como el resultado.'},
+   {t:'🙄 "El arte no resuelve el cambio climático"',fx:'🔵−10 🟣−8',fn:g=>{g.s-=10;g.p-=8;},tp:'bad',
+    fb:'El arte es un motor de cambio cultural. Las comunidades con identidad y orgullo por su territorio lo protegen mejor. Las emociones mueven más que los datos solos.'},
+ ]},
+{dim:'eco',c:'#fbbf24',yr:2035,
+ t:'🦎 Crisis de biodiversidad en el río Sinú',
+ s:'Un estudio reporta que 12 especies nativas del Sinú están en riesgo de extinción: el bocachico, el bagre rayado, la mojarra amarilla. Sin ellas, la pesca artesanal de miles de familias desaparecería para siempre.',
+ link:{idx:7,
+   onGood:{note:'🔗 <b>Consecuencia de tus decisiones:</b> los datos que recolectó tu grupo de ciencia ciudadana desde 2026 permiten identificar rápidamente las zonas críticas de reproducción de estas especies.',bonus:{ec:3,p:2}},
+   onBadOrMid:{note:'🔗 <b>Consecuencia de tus decisiones:</b> al no organizarse un monitoreo ciudadano en 2026, ahora hay menos datos históricos del río para actuar con rapidez frente a esta crisis.',bonus:{ec:-2}}},
+ ch:[
+   {t:'🔬 Crear un club escolar de ciencias del agua para monitorear las especies del río',fx:'🟢+26 🔵+18 🟣+12',fn:g=>{g.ec+=26;g.s+=18;g.p+=12;},tp:'good',
+    fb:'¡Los jóvenes como guardianes del Sinú! Los clubes de ciencias del agua generan datos que la CVS no puede recopilar sola y forman la próxima generación de gestores ambientales de Montería. El monitoreo comunitario del agua liderado por estudiantes ha demostrado, en revisiones sistemáticas internacionales, que fortalece la organización local y complementa la vigilancia institucional (Dominguez-Rendón et al., 2024).'},
+   {t:'📰 Compartir la noticia pero no actuar',fx:'🟢+4 🔵+3',fn:g=>{g.ec+=4;g.s+=3;},tp:'mid',
+    fb:'La información es el primer paso, pero no el último. La biodiversidad del Sinú necesita acciones de conservación concretas, no solo conciencia mediática.'},
+   {t:'😞 "Ya es demasiado tarde, el daño está hecho"',fx:'🟢−20 🔵−12 🟡−8',fn:g=>{g.ec-=20;g.s-=12;g.e-=8;},tp:'bad',
+    fb:'El bocachico fue recuperado en el Sinú una vez gracias a vedas y restauración. El fatalismo climático es el mayor enemigo de la acción. Siempre hay algo concreto que hacer.'},
+ ]},
+{dim:'all',c:'linear-gradient(90deg,#22d3ee,#fbbf24,#c084fc,#4ade80)',yr:2040,
+ t:'🌟 DECISIÓN FINAL — Visión de Montería 2040',
+ s:'Es el año 2040. Como joven que vivió todos estos momentos de decisión, tienes la oportunidad histórica de votar por la visión de Montería para las próximas dos décadas. ¿Cuál es el futuro que eliges construir?',
+ ch:[
+   {t:'🌿 MONTERÍA VERDE: adaptación basada en naturaleza, río Sinú restaurado, energía renovable, justicia climática para comunidades rurales y urbanas',fx:'🔵+30 🟡+28 🟣+26 🟢+30',fn:g=>{g.s+=30;g.e+=28;g.p+=26;g.ec+=30;},tp:'good',
+    fb:'¡Esta es la Montería que la próxima generación merece! Una ciudad que honra su río, protege a las comunidades más vulnerables, genera empleos limpios y lidera la sostenibilidad en el Caribe colombiano. Este futuro es posible — pero solo si jóvenes como tú lo exigen y construyen cada día. Los informes científicos internacionales coinciden en que la adaptación basada en ecosistemas y la acción climática local, sostenida en el tiempo, son claves para reducir riesgos futuros (IPCC, 2023).'},
+   {t:'🏗️ MONTERÍA INDUSTRIAL: crecimiento rápido, nuevas urbanizaciones, sin restricciones ambientales',fx:'🔵−22 🟡+8 🟣−20 🟢−28',fn:g=>{g.s-=22;g.e+=8;g.p-=20;g.ec-=28;},tp:'bad',
+    fb:'El crecimiento sin límites ambientales siempre le cobra la factura a los más vulnerables: inundaciones, calor extremo, escasez de agua. El desarrollo verdadero es sostenible o no es desarrollo.'},
+ ]},
+];
+
+/* ─────────── STORAGE ─────────── */
+async function save(d){
+  const k='gaia:'+d.pid;
+  try{await window.storage.set(k,JSON.stringify(d));
+    let ix=[];try{const r=await window.storage.get('gaia:idx');ix=r?JSON.parse(r.value):[]}catch{}
+    if(!ix.includes(k))ix.push(k);await window.storage.set('gaia:idx',JSON.stringify(ix));
+  }catch{try{localStorage.setItem(k,JSON.stringify(d))}catch{}}
+}
+async function loadAll(){
+  const out=[];
+  try{const r=await window.storage.get('gaia:idx');const ids=r?JSON.parse(r.value):[];
+    for(const id of ids){try{const v=await window.storage.get(id);if(v)out.push(JSON.parse(v.value))}catch{}}
+  }catch{try{for(const k of Object.keys(localStorage)){if(k.startsWith('gaia:')&&k!=='gaia:idx'){const v=localStorage.getItem(k);if(v)out.push(JSON.parse(v))}}}catch{}}
+  return out;
+}
+
+/* ─────────── NAV ─────────── */
+function go(id){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('pg-'+id).classList.add('on');
+  window.scrollTo(0,0);
+  if(id==='admin')loadAdmin();
+}
+function show(id){
+  ['reg','pre','game','res'].forEach(s=>{
+    const el=document.getElementById('s-'+s);
+    if(el)el.classList.toggle('hidden',s!==id);
+  });
+  window.scrollTo(0,0);
+}
+function reset(){S={pid:null,reg:null,preAns:[],gs:{s:50,e:50,p:50,ec:50,turn:0,hist:[],linkApplied:{}},done:false};
+  if(raf){cancelAnimationFrame(raf);raf=null;}go('land');}
+
+/* ─────────── REGISTRATION ─────────── */
+function doReg(){
+  const al=document.getElementById('r-al').value.trim();
+  const ed=parseInt(document.getElementById('r-ed').value);
+  const sx=document.getElementById('r-sx').value;
+  const ie=document.getElementById('r-ie').value.trim();
+  let ok=true;
+  const chk=(f,e,c,m)=>{document.getElementById(e).textContent=c?'':m;if(!c)ok=false;};
+  chk('r-al','e-al',al.length>=2,'Escribe tu alias (mínimo 2 caracteres)');
+  chk('r-ed','e-ed',ed>=10&&ed<=20,'Edad entre 10 y 20 años');
+  chk('r-sx','e-sx',sx!=='','Selecciona tu sexo');
+  chk('r-ie','e-ie',ie.length>=3,'Escribe el nombre del colegio');
+  if(!ok)return;
+  S.pid='g'+Date.now()+Math.random().toString(36).slice(2,6);
+  S.reg={al,ed,sx,ie,gr:document.getElementById('r-gr').value||'N/A',
+         zo:document.getElementById('r-zo').value||'N/A',ts:new Date().toISOString()};
+  S.preAns=new Array(ITEMS.length).fill(0);
+  buildPre();show('pre');
+}
+
+/* ─────────── PRE-TEST ─────────── */
+const dimMeta={soc:{lbl:'Dimensión Social',cls:'d-soc'},
+               eco:{lbl:'Dimensión Económica',cls:'d-eco'},
+               pol:{lbl:'Dimensión Política',cls:'d-pol'},
+               sis:{lbl:'Dimensión Ecosistémica',cls:'d-sis'}};
+function buildPre(){
+  const f=document.getElementById('pre-form');f.innerHTML='';
+  let last='';
+  ITEMS.forEach((item,i)=>{
+    if(item.dim!==last){
+      const h=document.createElement('div');h.className='sec-lbl';
+      h.innerHTML=`<span class="dim-chip ${dimMeta[item.dim].cls}">${dimMeta[item.dim].lbl}</span>`;
+      f.appendChild(h);last=item.dim;
+    }
+    const d=document.createElement('div');d.className='qi';d.id='qi'+i;
+    d.innerHTML=`<div class="qi-q">${i+1}. ${item.q}</div>
+    <div class="lik">${[1,2,3,4,5].map(n=>`<label>
+      <input type="radio" name="q${i}" value="${n}" onchange="onAns(${i})">
+      <div class="ld">${n}</div>
+      <div class="ll">${n===1?item.l1:n===5?item.l5:''}</div></label>`).join('')}
+    </div>`;
+    f.appendChild(d);
+  });
+}
+function onAns(i){
+  const v=+document.querySelector(`input[name="q${i}"]:checked`)?.value||0;
+  S.preAns[i]=v;document.getElementById('qi'+i)?.classList.add('ans');
+  const filled=S.preAns.filter(x=>x>0).length;
+  const pct=Math.round(filled/ITEMS.length*100);
+  document.getElementById('pre-pg').style.width=pct+'%';
+  document.getElementById('pi-lbl').textContent=`${Math.min(filled+1,ITEMS.length)} de ${ITEMS.length}`;
+  document.getElementById('pi-pct').textContent=pct+'%';
+  if(filled===ITEMS.length)document.getElementById('pre-btn').classList.remove('hidden');
+}
+async function doPre(){
+  if(S.preAns.filter(x=>x>0).length<ITEMS.length){alert('Responde todas las preguntas.');return;}
+  const ps={};const cnt={};ITEMS.forEach((it,i)=>{ps[it.dim]=(ps[it.dim]||0)+S.preAns[i];cnt[it.dim]=(cnt[it.dim]||0)+1;});
+  S.preScores=Object.fromEntries(Object.keys(ps).map(k=>[k,+(ps[k]/cnt[k]).toFixed(2)]));
+  await save({pid:S.pid,reg:S.reg,preAns:S.preAns,preScores:S.preScores,done:false});
+  initGame();show('game');
+}
+
+/* ─────────── GAME ─────────── */
+function initGame(){
+  S.gs={s:50,e:50,p:50,ec:50,turn:0,hist:[],linkApplied:{}};
+  if(raf){cancelAnimationFrame(raf);raf=null;}
+  renderHUD();renderEv();cityLoop();
+}
+const clamp=v=>Math.min(100,Math.max(0,v));
+function clampAll(){['s','e','p','ec'].forEach(k=>S.gs[k]=clamp(S.gs[k]));}
+
+function renderHUD(){
+  const g=S.gs;
+  const avg=Math.round((g.s+g.e+g.p+g.ec)/4);
+  const col=avg>=65?'var(--sis)':avg>=40?'var(--eco)':'var(--red)';
+  document.getElementById('g-hud').innerHTML=`
+    <div class="hb"><div class="hv" style="color:var(--soc)">${Math.round(g.s)}</div>
+    <div class="hl">Social</div><div class="hbar"><div class="hbf" style="width:${g.s}%;background:var(--soc)"></div></div></div>
+    <div class="hb"><div class="hv" style="color:var(--eco)">${Math.round(g.e)}</div>
+    <div class="hl">Económica</div><div class="hbar"><div class="hbf" style="width:${g.e}%;background:var(--eco)"></div></div></div>
+    <div class="hb"><div class="hv" style="color:var(--pol)">${Math.round(g.p)}</div>
+    <div class="hl">Política</div><div class="hbar"><div class="hbf" style="width:${g.p}%;background:var(--pol)"></div></div></div>
+    <div class="hb"><div class="hv" style="color:var(--sis)">${Math.round(g.ec)}</div>
+    <div class="hl">Ecosistema</div><div class="hbar"><div class="hbf" style="width:${g.ec}%;background:var(--sis)"></div></div></div>`;
+  document.getElementById('g-badge').textContent=`Escenario ${g.turn+1} / ${EVTS.length}`;
+  document.getElementById('g-yr').textContent=`📅 Año ${EVTS[Math.min(g.turn,EVTS.length-1)].yr} · Puntaje global: ${avg}%`;
+}
+/* ─────────── CONSECUENCIAS NARRATIVAS ─────────── */
+function applyLinkNotes(ev){
+  const box=document.getElementById('ev-link');
+  if(!box)return;
+  box.innerHTML='';
+  if(!ev.link)return;
+  const links=Array.isArray(ev.link)?ev.link:[ev.link];
+  const already=S.gs.linkApplied[S.gs.turn];
+  let html='';
+  links.forEach((L,li)=>{
+    const h=S.gs.hist.find(x=>x.turn===L.idx);
+    if(!h)return;
+    const branch=h.tp==='good'?L.onGood:L.onBadOrMid;
+    if(!branch)return;
+    html+=`<div class="link-note">${branch.note}</div>`;
+    if(!already && branch.bonus){
+      for(const k in branch.bonus){S.gs[k]=(S.gs[k]||0)+branch.bonus[k];}
+    }
+  });
+  if(html){
+    box.innerHTML=html;
+    if(!already){clampAll();S.gs.linkApplied[S.gs.turn]=true;renderHUD();}
+  }
+}
+function renderEv(){
+  if(S.gs.turn>=EVTS.length){endGame();return;}
+  const ev=EVTS[S.gs.turn];
+  // stripe
+  const stripe=document.getElementById('ev-s');
+  if(ev.c.startsWith('linear')){stripe.style.background=ev.c;}
+  else{stripe.style.background=ev.c;}
+  document.getElementById('ev-m').textContent=`Turno ${S.gs.turn+1}/${EVTS.length}`;
+  const dNames={soc:'Social 🔵',eco:'Económica 🟡',pol:'Política 🟣',sis:'Ecosistémica 🟢',all:'Todas las dimensiones ✨'};
+  const dClass={soc:'d-soc',eco:'d-eco',pol:'d-pol',sis:'d-sis',all:'d-sis'};
+  document.getElementById('ev-d').innerHTML=`<span class="dim-chip ${dClass[ev.dim]}">${dNames[ev.dim]}</span>`;
+  document.getElementById('ev-t').textContent=ev.t;
+  document.getElementById('ev-st').textContent=ev.s;
+  applyLinkNotes(ev);
+  const cc=document.getElementById('ev-ch');cc.innerHTML='';
+  ev.ch.forEach((ch,ci)=>{
+    const b=document.createElement('button');b.className='ch';
+    b.innerHTML=`<span>${ch.t}</span><span class="ch-fx">${ch.fx}</span>`;
+    b.onclick=()=>{
+      document.querySelectorAll('.ch').forEach(x=>{x.disabled=true;});
+      b.classList.add(ch.tp);
+      ch.fn(S.gs);clampAll();
+      S.gs.hist.push({turn:S.gs.turn,ev:ev.t,ch:ch.t,tp:ch.tp});
+      S.gs.turn++;
+      renderHUD();
+      // feedback
+      document.getElementById('g-fb').innerHTML=
+        `<div class="fb ${ch.tp}"><strong>${ch.tp==='good'?'✅ Buena decisión:':ch.tp==='bad'?'⚠️ Consecuencias:':'💡 Reflexiona:'}</strong> ${ch.fb}</div>`;
+      window.scrollTo({top:0,behavior:'smooth'});
+      if(S.gs.turn>=EVTS.length)setTimeout(endGame,2800);
+      else setTimeout(()=>{renderEv();document.getElementById('g-fb').innerHTML='';},2600);
+    };
+    cc.appendChild(b);
+  });
+  document.getElementById('g-fb').innerHTML='';
+}
+async function endGame(){
+  if(raf){cancelAnimationFrame(raf);raf=null;}
+  const g=S.gs;const avg=Math.round((g.s+g.e+g.p+g.ec)/4);
+  S.done=true;S.finalScore=avg;
+  await save({pid:S.pid,reg:S.reg,preAns:S.preAns,preScores:S.preScores,
+    dimScores:{s:g.s,e:g.e,p:g.p,ec:g.ec},finalScore:avg,
+    hist:g.hist,done:true});
+  showResults(avg);show('res');
+}
+
+/* ─────────── CITY CANVAS ─────────── */
+function lerp(a,b,t){return a+(b-a)*Math.min(1,Math.max(0,t));}
+function lerpRGB(c1,c2,t){
+  const p=n=>parseInt(n,16);
+  const r=n=>Math.round(lerp(p(c1.slice(1,3)),p(c2.slice(1,3)),t)).toString(16).padStart(2,'0');
+  // decode hex properly
+  const h1=[c1.slice(1,3),c1.slice(3,5),c1.slice(5,7)];
+  const h2=[c2.slice(1,3),c2.slice(3,5),c2.slice(5,7)];
+  const rr=Math.round(lerp(parseInt(h1[0],16),parseInt(h2[0],16),t)).toString(16).padStart(2,'0');
+  const gg=Math.round(lerp(parseInt(h1[1],16),parseInt(h2[1],16),t)).toString(16).padStart(2,'0');
+  const bb=Math.round(lerp(parseInt(h1[2],16),parseInt(h2[2],16),t)).toString(16).padStart(2,'0');
+  return `#${rr}${gg}${bb}`;
+}
+function drawCity(cv,score){
+  const ctx=cv.getContext('2d');const W=cv.width;const H=cv.height;
+  const t=1-score/100; // 0=best, 1=worst
+  const ts=Date.now()/1000;
+  // sky gradient
+  const skyT=lerpRGB('#1a6bb5','#8b1a1a',t);
+  const skyB=lerpRGB('#42a5f5','#c62828',t);
+  const sg=ctx.createLinearGradient(0,0,0,H*.55);sg.addColorStop(0,skyT);sg.addColorStop(1,skyB);
+  ctx.fillStyle=sg;ctx.fillRect(0,0,W,H);
+  // heat haze overlay
+  if(t>.3){ctx.fillStyle=`rgba(180,60,0,${(t-.3)*.28})`;ctx.fillRect(0,0,W,H);}
+  // sun
+  const sx=W-54,sy=30+t*12,sr=16+t*18;
+  const sunC=lerpRGB('#ffe082','#b71c1c',t);
+  ctx.fillStyle=sunC;
+  if(t>.3){ctx.globalAlpha=.2+(t-.3)*.5;ctx.beginPath();ctx.arc(sx,sy,sr+14,0,Math.PI*2);ctx.fill();}
+  ctx.globalAlpha=1;ctx.beginPath();ctx.arc(sx,sy,sr,0,Math.PI*2);ctx.fill();
+  // ground
+  const gy=H*.56;
+  const gndC=lerpRGB('#2d5a1b','#5a3010',t);
+  ctx.fillStyle=gndC;ctx.fillRect(0,gy,W,H-gy);
+  // river Sinú
+  const rw=Math.max(W*.08,W*.26-t*W*.1);
+  const rC=lerpRGB('#1976d2','#4e342e',t);
+  ctx.fillStyle=rC;ctx.fillRect(0,gy,rw,H*.14);
+  // river shimmer
+  if(score>25){
+    ctx.fillStyle=`rgba(255,255,255,${score/700})`;
+    ctx.beginPath();
+    for(let x=0;x<=rw;x+=5)ctx.lineTo(x,gy+Math.sin(x*.2+ts*2)*1.8);
+    ctx.lineTo(rw,gy+H*.14);ctx.lineTo(0,gy+H*.14);ctx.fill();
+  }
+  // flood
+  if(score<30){
+    ctx.fillStyle=`rgba(50,80,160,${(30-score)/100})`;
+    ctx.fillRect(rw,gy+H*.04,W*(30-score)/120,H*.07);
+  }
+  // trees
+  const nt=Math.max(1,Math.floor(score/9));
+  const treeZone=W-rw-20;
+  for(let i=0;i<Math.min(nt,10);i++){
+    const tx=rw+16+(i*(treeZone/(Math.min(nt,10)+1)));
+    if(tx>W-14)break;
+    const th=18+Math.sin(i*1.9)*7;const tr=9+Math.sin(i*2.7)*4;
+    const tc=lerpRGB('#2e7d32','#4a2a08',t);
+    ctx.fillStyle=lerpRGB('#3e2008','#2a1808',t*.5);
+    ctx.fillRect(tx-3,gy-th,5,th);
+    ctx.fillStyle=tc;ctx.beginPath();ctx.arc(tx,gy-th-tr*.3,tr,0,Math.PI*2);ctx.fill();
+  }
+  // buildings
+  const blds=[{x:.38,w:30,h:52},{x:.5,w:40,h:70},{x:.62,w:26,h:44},
+              {x:.72,w:34,h:60},{x:.84,w:22,h:36}];
+  blds.forEach(b=>{
+    const bx=b.x*W,bw=b.w,bh=b.h;
+    ctx.fillStyle=lerpRGB('#37474f','#3e2723',t);
+    ctx.fillRect(bx,gy-bh,bw,bh);
+    // windows
+    ctx.fillStyle=score>45?`rgba(255,230,120,.55)`:`rgba(80,60,30,.3)`;
+    for(let wy=5;wy<bh-4;wy+=9)for(let wx=4;wx<bw-4;wx+=8)ctx.fillRect(bx+wx,gy-bh+wy,5,6);
+    // smog
+    if(t>.35){ctx.fillStyle=`rgba(100,60,20,${(t-.35)*.55})`;
+      ctx.beginPath();ctx.arc(bx+bw*.5,gy-bh-8,10+t*10,0,Math.PI*2);ctx.fill();}
+  });
+  // temperature label
+  const avgS=Math.round((S.gs?.s||50+S.gs?.e||50+S.gs?.p||50+S.gs?.ec||50)/4)||score;
+  const tVal=Math.round(30+t*11);
+  ctx.fillStyle='rgba(0,0,0,.55)';_rr(ctx,W-72,H-22,64,17,5);ctx.fill();
+  ctx.fillStyle='#fff';ctx.font=`700 8px monospace`;
+  ctx.fillText(`🌡 ${tVal}°C`,W-68,H-10);
+  // city name label
+  const labels=['🌿 Montería Resiliente','🌤 Montería en Transición','🌡 Montería Vulnerable','🔥 Montería en Crisis'];
+  const li=score>=75?0:score>=50?1:score>=30?2:3;
+  ctx.fillStyle='rgba(0,0,0,.55)';_rr(ctx,8,H-22,158,17,5);ctx.fill();
+  ctx.fillStyle='#fff';ctx.font=`700 8px monospace`;ctx.fillText(labels[li],12,H-10);
+}
+function _rr(ctx,x,y,w,h,r){
+  ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.arcTo(x+w,y,x+w,y+r,r);
+  ctx.lineTo(x+w,y+h-r);ctx.arcTo(x+w,y+h,x+w-r,y+h,r);
+  ctx.lineTo(x+r,y+h);ctx.arcTo(x,y+h,x,y+h-r,r);ctx.lineTo(x,y+r);ctx.arcTo(x,y,x+r,y,r);
+  ctx.closePath();
+}
+function cityLoop(){
+  const cv=document.getElementById('gc');
+  if(!cv||document.getElementById('s-game')?.classList.contains('hidden'))return;
+  const sc=Math.round((S.gs.s+S.gs.e+S.gs.p+S.gs.ec)/4);
+  drawCity(cv,sc);raf=requestAnimationFrame(cityLoop);
+}
+
+/* ─────────── RESULTS ─────────── */
+function showResults(score){
+  // final city
+  const cv=document.getElementById('fc');drawCity(cv,score);
+  const g=S.gs;
+  const tier=score>=75
+    ?{lbl:'🌿 Montería Resiliente 2040',col:'var(--sis)',msg:'¡Construiste una Montería verde y justa! El río Sinú está restaurado, hay energía solar en los colegios, las comunidades pesqueras prosperan y los jóvenes lideran la acción climática. Este futuro es posible con decisiones como las que tomaste.'}
+    :score>=50?{lbl:'🌤️ Montería en Transición',col:'var(--eco)',msg:'Tomaste muchas decisiones correctas, pero algunas compromisos quedaron incompletos. Montería avanza, aunque sigue siendo vulnerable. El trabajo continúa — cada decisión cuenta.'}
+    :score>=30?{lbl:'🌡️ Montería Vulnerable',col:'var(--oran)',msg:'Varias decisiones no consideraron el impacto ambiental y social. La ciudad enfrenta riesgos reales: el Sinú bajo presión, calor extremo y comunidades sin apoyo. Aún hay tiempo para cambiar el rumbo.'}
+    :{lbl:'🔥 Montería en Crisis Climática',col:'var(--red)',msg:'Las decisiones tomadas llevaron a Montería hacia una crisis climática severa. Esta simulación muestra exactamente por qué la educación ambiental es urgente — y por qué cada decisión importa.'};
+  document.getElementById('res-t').textContent=tier.lbl;
+  const good=g.hist.filter(h=>h.tp==='good').length;
+  const bad=g.hist.filter(h=>h.tp==='bad').length;
+  document.getElementById('res-scores').innerHTML=`
+    <div class="ct">📊 Tu perfil de sostenibilidad</div>
+    <div class="score-big">
+      <div class="sc" style="color:${tier.col}">${score}%</div>
+      <div class="sc-lbl">Puntaje global de resiliencia climática</div>
+    </div>
+    <div class="sep"></div>
+    ${dr('🔵','Social',Math.round(g.s),'var(--soc)')}
+    ${dr('🟡','Económica',Math.round(g.e),'var(--eco)')}
+    ${dr('🟣','Política',Math.round(g.p),'var(--pol)')}
+    ${dr('🟢','Ecosistémica',Math.round(g.ec),'var(--sis)')}
+    <div class="sep"></div>
+    <div style="display:flex;gap:10px">
+      <div style="flex:1;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:10px;padding:12px;text-align:center">
+        <div style="font-family:var(--fm);font-size:1.5rem;font-weight:700;color:var(--sis)">${good}</div>
+        <div style="font-size:.58rem;color:var(--muted);text-transform:uppercase;margin-top:3px">Decisiones sostenibles</div>
+      </div>
+      <div style="flex:1;background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:10px;padding:12px;text-align:center">
+        <div style="font-family:var(--fm);font-size:1.5rem;font-weight:700;color:var(--red)">${bad}</div>
+        <div style="font-size:.58rem;color:var(--muted);text-transform:uppercase;margin-top:3px">Decisiones no sostenibles</div>
+      </div>
+    </div>`;
+  document.getElementById('res-reco').innerHTML=`
+    <div class="ct">🌍 ¿Qué aprendiste?</div>
+    <div class="hl hl-g">${tier.msg}</div>
+    <p style="font-size:.8rem;color:var(--muted);line-height:1.75;margin-top:10px">
+      Cada escenario de esta simulación tiene un equivalente real en la vida de Montería. 
+      Las decisiones sobre el río Sinú, el calor urbano, las comunidades pesqueras y las 
+      políticas ambientales se toman hoy — y tú puedes ser parte activa de esas decisiones.
+    </p>
+    <div style="font-size:.76rem;color:var(--muted);margin-top:10px;line-height:1.8">
+      <strong style="color:var(--g)">📚 Para explorar más:</strong> 
+      CVS Córdoba · IDEAM · Ley 2427/2024 · PRAE de tu colegio · Fridays for Future Colombia
+    </div>`;
+}
+function dr(ic,nm,v,col){
+  return `<div class="dim-row">
+    <div class="dr-ico">${ic}</div>
+    <div class="dr-nm" style="font-size:.72rem">${nm}</div>
+    <div class="dr-tr"><div class="dr-f" style="width:${v}%;background:${col}"></div></div>
+    <div class="dr-v" style="color:${col}">${v}</div>
+  </div>`;
+}
+
+/* ─────────── ADMIN ─────────── */
+function reqAdmin(){
+  const p=prompt('Contraseña del investigador:');
+  if(p===APASS){go('admin');}else if(p!==null)alert('Contraseña incorrecta.');
+}
+function aTab(id,el){
+  document.querySelectorAll('.tp').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById(id).classList.add('on');el.classList.add('on');
+}
+async function loadAdmin(){
+  DATA=await loadAll();
+  renderDash();renderPart(DATA);renderPreStats();
+}
+function avg(arr){return arr.length?+(arr.reduce((a,b)=>a+b,0)/arr.length).toFixed(1):0;}
+function renderDash(){
+  const done=DATA.filter(d=>d.done);const n=DATA.length;const nd=done.length;
+  const insts=[...new Set(DATA.map(d=>d.reg?.ie||''))].filter(Boolean).length;
+  const sc=done.map(d=>d.finalScore||0);
+  const da={s:avg(done.map(d=>d.dimScores?.s||0)),e:avg(done.map(d=>d.dimScores?.e||0)),
+            p:avg(done.map(d=>d.dimScores?.p||0)),ec:avg(done.map(d=>d.dimScores?.ec||0))};
+  document.getElementById('dash').innerHTML=`
+    <div class="sg" style="margin-bottom:14px">
+      <div class="sb"><div class="sv" style="color:var(--g)">${n}</div><div class="sl">Total</div></div>
+      <div class="sb"><div class="sv" style="color:var(--soc)">${nd}</div><div class="sl">Completos</div></div>
+      <div class="sb"><div class="sv" style="color:var(--eco)">${n-nd}</div><div class="sl">Pre-test only</div></div>
+      <div class="sb"><div class="sv" style="color:var(--pol)">${insts}</div><div class="sl">Instituciones</div></div>
+    </div>
+    ${nd>0?`
+    <div style="font-size:.72rem;font-weight:800;color:var(--eco);margin-bottom:9px">Promedios de simulación (n=${nd})</div>
+    ${dr('🔵','Social',Math.round(da.s),'var(--soc)')}
+    ${dr('🟡','Económica',Math.round(da.e),'var(--eco)')}
+    ${dr('🟣','Política',Math.round(da.p),'var(--pol)')}
+    ${dr('🟢','Ecosistémica',Math.round(da.ec),'var(--sis)')}
+    <div class="sep"></div>
+    <div style="font-size:.72rem;font-weight:800;color:var(--eco);margin-bottom:8px">Distribución de puntaje final</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      ${[['🌿≥75%',sc.filter(s=>s>=75).length,'var(--sis)'],['🌤 50–74%',sc.filter(s=>s>=50&&s<75).length,'var(--eco)'],['🌡 30–49%',sc.filter(s=>s>=30&&s<50).length,'var(--oran)'],['🔥<30%',sc.filter(s=>s<30).length,'var(--red)']].map(([l,c,co])=>`<div class="sb" style="flex:1"><div class="sv" style="font-size:1.2rem;color:${co}">${c}</div><div class="sl">${l}</div></div>`).join('')}
+    </div>`:
+    '<div class="hl hl-y">Sin datos de simulación completa aún.</div>'}`;
+}
+function renderPart(data){
+  if(!data.length){document.getElementById('ptbl').innerHTML='<p style="color:var(--muted);font-size:.8rem">Sin participantes.</p>';return;}
+  let h=`<table class="tbl"><thead><tr><th>Alias</th><th>Edad</th><th>Sexo</th><th>Institución</th><th>Grado</th><th>Zona</th><th>Score</th><th>Soc</th><th>Eco</th><th>Pol</th><th>Sis</th><th>Estado</th></tr></thead><tbody>`;
+  data.forEach(d=>{
+    const sc=d.finalScore;const ds=d.dimScores||{};
+    const co=typeof sc==='number'?sc>=65?'#4ade80':sc>=40?'#fbbf24':'#f87171':'#888';
+    h+=`<tr><td>${d.reg?.al||'—'}</td><td>${d.reg?.ed||'—'}</td><td>${d.reg?.sx||'—'}</td><td>${d.reg?.ie||'—'}</td><td>${d.reg?.gr||'—'}</td><td>${d.reg?.zo||'—'}</td>
+    <td style="color:${co};font-weight:700">${typeof sc==='number'?sc+'%':'—'}</td>
+    <td>${ds.s?Math.round(ds.s):'—'}</td><td>${ds.e?Math.round(ds.e):'—'}</td>
+    <td>${ds.p?Math.round(ds.p):'—'}</td><td>${ds.ec?Math.round(ds.ec):'—'}</td>
+    <td>${d.done?'<span style="color:#4ade80">✓</span>':'<span style="color:#fbbf24">pre</span>'}</td></tr>`;
+  });
+  document.getElementById('ptbl').innerHTML=h+'</tbody></table>';
+}
+function renderPreStats(){
+  const data=DATA.filter(d=>d.preAns?.length>0);
+  if(!data.length){document.getElementById('prestats').innerHTML='<p style="color:var(--muted)">Sin datos de pre-test.</p>';return;}
+  const dimAcc={soc:0,eco:0,pol:0,sis:0},dimCnt={soc:0,eco:0,pol:0,sis:0};
+  let h=`<div class="ct">Promedios por ítem (n=${data.length})</div>
+  <table class="tbl"><thead><tr><th>Ítem</th><th>Dim.</th><th>Pregunta</th><th>Prom.</th><th>Graf.</th></tr></thead><tbody>`;
+  ITEMS.forEach((it,i)=>{
+    const vals=data.map(d=>d.preAns[i]||0);const a=avg(vals);const p=(a/5)*100;
+    const co=a>=4?'#4ade80':a>=3?'#fbbf24':'#fb923c';
+    dimAcc[it.dim]+=a;dimCnt[it.dim]++;
+    h+=`<tr><td style="font-family:var(--fm)">${it.id}</td>
+    <td><span class="dim-chip ${dimMeta[it.dim].cls}" style="font-size:.5rem">${it.dim.toUpperCase()}</span></td>
+    <td style="max-width:140px;font-size:.66rem">${it.q.slice(0,55)}…</td>
+    <td style="color:${co};font-family:var(--fm);font-weight:700">${a}</td>
+    <td><div style="width:70px;height:6px;background:rgba(255,255,255,.08);border-radius:3px"><div style="width:${p}%;height:100%;background:${co};border-radius:3px"></div></div></td></tr>`;
+  });
+  document.getElementById('prestats').innerHTML=h+'</tbody></table>'+
+    `<div class="sep"></div><div style="font-size:.72rem;font-weight:800;color:var(--eco);margin-bottom:8px">Promedios por dimensión</div>
+    <div class="sg">
+      ${Object.entries(dimAcc).map(([k,v])=>{const a=+(v/dimCnt[k]).toFixed(2);const co=a>=4?'var(--sis)':a>=3?'var(--eco)':'var(--oran)';return `<div class="sb"><div class="sv" style="color:${co};font-size:1.3rem">${a}</div><div class="sl">${k.toUpperCase()}</div></div>`}).join('')}
+    </div>`;
+}
+function filterP(){
+  const q=document.getElementById('srch').value.toLowerCase();
+  renderPart(DATA.filter(d=>(d.reg?.al||'').toLowerCase().includes(q)||(d.reg?.ie||'').toLowerCase().includes(q)));
+}
+async function doExport(type){
+  const data=await loadAll();if(!data.length){alert('Sin datos.');return;}
+  let rows=[],fname='';
+  if(type==='full'){
+    const h=['PID','Alias','IE','Grado','Edad','Sexo','Zona','Fecha',
+      ...ITEMS.map(i=>i.id+'_'+i.dim),'Score','Dim_S','Dim_E','Dim_P','Dim_Ec','Completo','Dec_Bue','Dec_Mal'];
+    rows=[h];
+    data.forEach(d=>{
+      const hist=d.hist||[];const gb=hist.filter(h=>h.tp==='good').length;const bm=hist.filter(h=>h.tp==='bad').length;
+      rows.push([d.pid,`"${d.reg?.al}"`,`"${d.reg?.ie}"`,d.reg?.gr,d.reg?.ed,`"${d.reg?.sx}"`,`"${d.reg?.zo}"`,
+        d.reg?.ts?.slice(0,10),...(d.preAns||[]).map(v=>v||''),
+        d.finalScore||'',d.dimScores?.s||'',d.dimScores?.e||'',
+        d.dimScores?.p||'',d.dimScores?.ec||'',d.done?1:0,gb,bm]);
+    });
+    fname=`GaiaCC_datos_${new Date().toISOString().slice(0,10)}.csv`;
+  } else {
+    const done=data.filter(d=>d.done);
+    rows=[['Instrumento','Gaia Montería EpCC'],['Institución','UDCA Doctorado Ciencias de la Sostenibilidad'],
+      ['Fecha',new Date().toLocaleDateString('es-CO')],['N_total',data.length],
+      ['N_completos',done.length],[''],
+      ['Dimensión','Promedio Sim.','Promedio Pre-test'],
+      ['Social',avg(done.map(d=>d.dimScores?.s||0)),avg(data.map(d=>d.preScores?.soc||0))],
+      ['Económica',avg(done.map(d=>d.dimScores?.e||0)),avg(data.map(d=>d.preScores?.eco||0))],
+      ['Política',avg(done.map(d=>d.dimScores?.p||0)),avg(data.map(d=>d.preScores?.pol||0))],
+      ['Ecosistémica',avg(done.map(d=>d.dimScores?.ec||0)),avg(data.map(d=>d.preScores?.sis||0))],
+    ];
+    fname=`GaiaCC_resumen_${new Date().toISOString().slice(0,10)}.csv`;
+  }
+  const csv=rows.map(r=>r.join(',')).join('\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}));
+  a.download=fname;a.click();
+}
+async function clearAll(){
+  if(!confirm('¿Borrar TODOS los datos? Esta acción es irreversible.'))return;
+  try{const r=await window.storage.get('gaia:idx');const ids=r?JSON.parse(r.value):[];
+    for(const id of ids)await window.storage.delete(id);await window.storage.delete('gaia:idx');}
+  catch{try{Object.keys(localStorage).filter(k=>k.startsWith('gaia:')).forEach(k=>localStorage.removeItem(k))}catch{}}
+  DATA=[];loadAdmin();alert('Datos eliminados.');
+}
+
+/* ─────────── QR / COMPARTIR ─────────── */
+function gameURL(){
+  // Si el archivo se abre localmente (file://) usa esa ruta;
+  // si está publicado en un servidor, se usará automáticamente esa URL.
+  let u=location.href.split('#')[0];
+  return u;
+}
+function genQR(){
+  const url=gameURL();
+  const box=document.getElementById('qr-box');
+  if(!box)return;
+  box.innerHTML='';
+  try{
+    new QRCode(box,{text:url,width:190,height:190,
+      colorDark:'#07100a',colorLight:'#ffffff',
+      correctLevel:QRCode.CorrectLevel.H});
+  }catch(e){
+    box.innerHTML='<div style="color:#f87171;font-size:.7rem;padding:10px">No se pudo generar el QR.</div>';
+  }
+  const lbl=document.getElementById('qr-url-lbl');
+  if(lbl)lbl.textContent=url;
+}
+function copyLink(){
+  const url=gameURL();
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(()=>alert('Enlace copiado ✅')).catch(()=>fallbackCopy(url));
+  }else{
+    fallbackCopy(url);
+  }
+}
+function fallbackCopy(url){
+  const ta=document.createElement('textarea');
+  ta.value=url;document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');alert('Enlace copiado ✅');}
+  catch(e){alert('Copia manual: '+url);}
+  document.body.removeChild(ta);
+}
+function downloadQR(){
+  const box=document.getElementById('qr-box');
+  if(!box){return;}
+  const img=box.querySelector('img');
+  const canvas=box.querySelector('canvas');
+  const a=document.createElement('a');
+  a.download='QR_GaiaMonteria.png';
+  if(canvas){
+    a.href=canvas.toDataURL('image/png');
+  }else if(img){
+    a.href=img.src;
+  }else{
+    alert('Primero genera el código QR.');return;
+  }
+  a.click();
+}
+
+/* ─────────── INIT ─────────── */
+document.addEventListener('DOMContentLoaded',()=>{
+  show('reg');
+  document.querySelectorAll('.nb').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('.nb').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+  }));
+  genQR();
+});
+</script>
+</body>
+</html>
